@@ -1,0 +1,79 @@
+
+public static class CodingTask
+{
+    private final HashMap<Integer, Integer> hashMap;
+    private final List<Integer> arrayA;
+    private final List<Integer> arrayB;
+    private final List<Integer> arrayC;
+    private final HashMap<Integer, Boolean> isPrimeArray;
+    public CodingTask(List<Integer> arrayA, List<Integer> arrayB)
+    {
+        this.arrayA = arrayA;
+        this.arrayB = arrayB;
+        this.arrayC = new ArrayList<>();
+        this.hashMap = new HashMap<>();
+        this.isPrimeArray = new HashMap<>();
+    }
+    public List<Integer> algoritm() {
+
+        for(Integer element : this.arrayB)
+        {
+            if(this.hashMap.containsKey(element))
+            {
+                Integer count = this.hashMap.get(element);
+                this.hashMap.put(element, ++count);
+            }
+            else
+            {
+                this.hashMap.put(element , 1);
+            }
+        }
+        for(Integer element: this.hashMap.keySet())
+        {
+            Integer value = this.hashMap.get(element);
+            if(!this.isPrimeArray.containsKey(value))
+            {
+                boolean prime = isPrime(value);
+                this.isPrimeArray.put(value, prime);
+            }
+
+        }
+        System.out.println(hashMap);
+        System.out.println(isPrimeArray);
+        for(Integer element : this.arrayA)
+        {
+            if(this.isPrimeArray.containsKey(this.hashMap.get(element)))
+            {
+                if(!this.isPrimeArray.get(this.hashMap.get(element)))
+                {
+                    this.arrayC.add(element);
+                }
+            }
+            else
+            {
+                this.arrayC.add(element);
+            }
+        }
+
+        return arrayC;
+    }
+    private boolean isPrime(int number)
+    {
+        if(number == 1)
+        {
+            return false;
+        }
+        if(number == 2)
+        {
+            return true;
+        }
+        for(int i = 2; i<= number*number; i++)
+        {
+            if(number% i == 0)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+}
